@@ -1,0 +1,6 @@
+{
+  "name": "Noventra Charity Foundation",
+  "description": "Official platform for Noventra Charity Foundation - Restoring hope and transforming lives through education, healthcare, economic empowerment, and community development.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

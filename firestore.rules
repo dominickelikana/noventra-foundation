@@ -1,0 +1,55 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow public read on published projects, news, media, settings, and transparency reports
+    match /projects/{projectId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    
+    match /news_events/{newsId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    
+    match /media_gallery/{mediaId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    
+    match /site_settings/{settingId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Donations: Public can create donation records; authorized users can read/update
+    match /donations/{donationId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Volunteers: Public can submit volunteer applications; authorized users can manage
+    match /volunteers/{volunteerId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Contact messages: Public can submit inquiries; authorized users can read/update
+    match /contact_messages/{messageId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Audit logs: Create by authenticated actions, read by authenticated users
+    match /audit_logs/{logId} {
+      allow read, create: if request.auth != null;
+      allow update, delete: if false; // Immutable audit logs
+    }
+
+    // User roles and profiles
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && (request.auth.uid == userId || request.auth.token.admin == true);
+    }
+  }
+}
