@@ -1,6 +1,7 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+<<<<<<< HEAD
 
     // Helper function to validate incoming basic string fields
     function validSubmission(data) {
@@ -11,26 +12,42 @@ service cloud.firestore {
     }
 
     // Public Read Collections
+=======
+    // Allow public read on published projects, news, media, settings, and transparency reports
+>>>>>>> fcddf4b7d10f3cb05d4bcb95324abe9a453d17eb
     match /projects/{projectId} {
       allow read: if true;
       allow write: if request.auth != null;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> fcddf4b7d10f3cb05d4bcb95324abe9a453d17eb
     match /news_events/{newsId} {
       allow read: if true;
       allow write: if request.auth != null;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> fcddf4b7d10f3cb05d4bcb95324abe9a453d17eb
     match /media_gallery/{mediaId} {
       allow read: if true;
       allow write: if request.auth != null;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> fcddf4b7d10f3cb05d4bcb95324abe9a453d17eb
     match /site_settings/{settingId} {
       allow read: if true;
       allow write: if request.auth != null;
     }
 
+<<<<<<< HEAD
     // Public Form Submissions with Data Validation
     match /donations/{donationId} {
       allow create: if validSubmission(request.resource.data)
@@ -51,14 +68,43 @@ service cloud.firestore {
     }
 
     // Admin & Authenticated Collections
+=======
+    // Donations: Public can create donation records; authorized users can read/update
+    match /donations/{donationId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Volunteers: Public can submit volunteer applications; authorized users can manage
+    match /volunteers/{volunteerId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Contact messages: Public can submit inquiries; authorized users can read/update
+    match /contact_messages/{messageId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Audit logs: Create by authenticated actions, read by authenticated users
+>>>>>>> fcddf4b7d10f3cb05d4bcb95324abe9a453d17eb
     match /audit_logs/{logId} {
       allow read, create: if request.auth != null;
       allow update, delete: if false; // Immutable audit logs
     }
 
+<<<<<<< HEAD
+=======
+    // User roles and profiles
+>>>>>>> fcddf4b7d10f3cb05d4bcb95324abe9a453d17eb
     match /users/{userId} {
       allow read: if request.auth != null;
       allow write: if request.auth != null && (request.auth.uid == userId || request.auth.token.admin == true);
     }
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> fcddf4b7d10f3cb05d4bcb95324abe9a453d17eb
