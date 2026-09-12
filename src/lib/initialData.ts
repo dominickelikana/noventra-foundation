@@ -14,11 +14,8 @@ export const initialSiteSettings: SiteSettings = {
   country: 'Tanzania',
   googleMapsEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126744.15655787679!2d39.2083284!3d-6.792354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185c4c1a55555555%3A0x6b77209a5b33e144!2sDar%20es%20Salaam%2C%20Tanzania!5e0!3m2!1sen!2stz!4v1700000000000!5m2!1sen!2stz',
   socialLinks: {
-    facebook: 'https://facebook.com/noventrafoundation',
-    twitter: 'https://twitter.com/noventratz',
-    instagram: 'https://instagram.com/noventrafoundation',
-    linkedin: 'https://linkedin.com/company/noventra-foundation',
-    youtube: 'https://youtube.com/@noventrafoundation',
+    instagram: 'https://instagram.com/noventra_foundation?igsi=dWR5aG5iNWx4czFs&utm_source=qr',
+    tiktok: 'https://www.tiktok.com/@noventra.foundation?_r=1&_t=ZS-9996OPDc4d'
   },
   paymentAccounts: {
     mpesaNumber: '0754 889 900 (Lipa Namba: 5678901)',

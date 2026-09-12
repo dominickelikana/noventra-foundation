@@ -8,7 +8,8 @@ import {
   CheckCircle2, 
   ExternalLink,
   Shield,
-  ArrowRight
+  ArrowRight,
+  Instagram
 } from 'lucide-react';
 import { Language } from '../../types';
 import { translations } from '../../lib/translations';
@@ -70,6 +71,29 @@ export const Footer: React.FC<FooterProps> = ({
                 <Shield className="w-4 h-4 text-emerald-400" />
                 <span>{t.transparency.regNumber}</span>
               </div>
+            </div>
+
+            {/* Social Channels */}
+            <div className="pt-2 flex items-center gap-2.5">
+              <a
+                href="https://instagram.com/noventra_foundation?igsi=dWR5aG5iNWx4czFs&utm_source=qr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-semibold text-pink-400 hover:text-white hover:border-pink-500/50 transition-colors"
+              >
+                <Instagram className="w-3.5 h-3.5" />
+                <span>Instagram</span>
+                <ExternalLink className="w-2.5 h-2.5 opacity-60" />
+              </a>
+              <a
+                href="https://www.tiktok.com/@noventra.foundation?_r=1&_t=ZS-9996OPDc4d"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-semibold text-cyan-400 hover:text-white hover:border-cyan-500/50 transition-colors"
+              >
+                <span>TikTok</span>
+                <ExternalLink className="w-2.5 h-2.5 opacity-60" />
+              </a>
             </div>
 
             <div className="pt-2 flex flex-wrap gap-2 text-xs font-semibold">

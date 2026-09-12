@@ -10,6 +10,7 @@ import {
   getAuditLogs, 
   getSiteSettings 
 } from './lib/db';
+import { auth, onAuthStateChanged, logoutUser } from './lib/firebase';
 
 // Layout
 import { Navbar } from './components/layout/Navbar';
@@ -78,7 +79,36 @@ export function App() {
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(() => {
     return localStorage.getItem('noventra_admin_session') === 'true';
   });
+  const [adminUser, setAdminUser] = useState<{ email: string; displayName?: string } | null>(() => {
+    const saved = localStorage.getItem('noventra_admin_user');
+    return saved ? JSON.parse(saved) : null;
+  });
   const [isAdminDashboardOpen, setIsAdminDashboardOpen] = useState(false);
+
+  // Sync with live Firebase Auth state
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsAdminLoggedIn(true);
+        const userData = {
+          email: user.email || 'admin@noventrafoundation.org',
+          displayName: user.displayName || undefined
+        };
+        setAdminUser(userData);
+        localStorage.setItem('noventra_admin_session', 'true');
+        localStorage.setItem('noventra_admin_user', JSON.stringify(userData));
+      } else {
+        // If not authenticated in Firebase and no local override
+        const localActive = localStorage.getItem('noventra_admin_session') === 'true';
+        if (!localActive) {
+          setIsAdminLoggedIn(false);
+          setAdminUser(null);
+        }
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   // Load all foundation data
   const loadData = async () => {
@@ -134,15 +164,25 @@ export function App() {
     loadData();
   };
 
-  const handleAdminLoginSuccess = (email: string) => {
+  const handleAdminLoginSuccess = (email: string, displayName?: string) => {
     setIsAdminLoggedIn(true);
+    const userObj = { email, displayName };
+    setAdminUser(userObj);
     localStorage.setItem('noventra_admin_session', 'true');
+    localStorage.setItem('noventra_admin_user', JSON.stringify(userObj));
     setIsAdminDashboardOpen(true);
   };
 
-  const handleAdminLogout = () => {
+  const handleAdminLogout = async () => {
+    try {
+      await logoutUser();
+    } catch (err) {
+      console.warn('Firebase logout notice:', err);
+    }
     setIsAdminLoggedIn(false);
+    setAdminUser(null);
     localStorage.removeItem('noventra_admin_session');
+    localStorage.removeItem('noventra_admin_user');
     setIsAdminDashboardOpen(false);
   };
 
@@ -357,6 +397,7 @@ export function App() {
         isOpen={isAdminDashboardOpen}
         onClose={() => setIsAdminDashboardOpen(false)}
         currentLang={currentLang}
+        adminUser={adminUser}
         projects={projects}
         donations={donations}
         volunteers={volunteers}

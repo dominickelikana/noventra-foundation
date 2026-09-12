@@ -172,11 +172,12 @@ export interface SiteSettings {
   country: string;
   googleMapsEmbedUrl: string;
   socialLinks: {
-    facebook: string;
-    twitter: string;
-    instagram: string;
-    linkedin: string;
-    youtube: string;
+    facebook?: string;
+    twitter?: string;
+    instagram?: string;
+    linkedin?: string;
+    youtube?: string;
+    tiktok?: string;
   };
   paymentAccounts: {
     mpesaNumber: string;

@@ -52,6 +52,7 @@ interface AdminDashboardProps {
   isOpen: boolean;
   onClose: () => void;
   currentLang: Language;
+  adminUser?: { email: string; displayName?: string } | null;
   projects: Project[];
   donations: Donation[];
   volunteers: VolunteerApplication[];
@@ -70,6 +71,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   isOpen,
   onClose,
   currentLang,
+  adminUser,
   projects,
   donations,
   volunteers,
@@ -264,9 +266,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
         {/* Footer info & Logout */}
         <div className="p-4 border-t border-slate-800 space-y-2">
-          <div className="text-[11px] text-slate-400 px-2">
-            <div>Logged in as: <strong className="text-white">Admin Director</strong></div>
-            <div className="text-emerald-400 text-[10px]">Role: Super Administrator</div>
+          <div className="text-[11px] text-slate-400 px-2 overflow-hidden">
+            <div className="truncate">Logged in as: <strong className="text-white">{adminUser?.displayName || adminUser?.email || 'Executive Admin'}</strong></div>
+            <div className="text-emerald-400 text-[10px] truncate">{adminUser?.email || 'Authenticated Staff'}</div>
           </div>
 
           <div className="grid grid-cols-2 gap-2 pt-2">

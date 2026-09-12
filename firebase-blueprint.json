@@ -1,0 +1,200 @@
+{
+  "entities": {
+    "Project": {
+      "title": "Project",
+      "description": "A community humanitarian project conducted by Noventra Charity Foundation.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "titleSw": { "type": "string" },
+        "description": { "type": "string" },
+        "descriptionSw": { "type": "string" },
+        "category": { "type": "string" },
+        "targetAmount": { "type": "number" },
+        "amountRaised": { "type": "number" },
+        "currency": { "type": "string" },
+        "location": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "completed", "planning"] },
+        "featured": { "type": "boolean" },
+        "beneficiariesCount": { "type": "number" },
+        "startDate": { "type": "string" }
+      },
+      "required": ["id", "title", "titleSw", "targetAmount", "amountRaised"]
+    },
+    "Donation": {
+      "title": "Donation",
+      "description": "Donation record received for foundation humanitarian operations.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "donorName": { "type": "string" },
+        "donorEmail": { "type": "string" },
+        "donorPhone": { "type": "string" },
+        "amount": { "type": "number" },
+        "currency": { "type": "string" },
+        "paymentMethod": { "type": "string" },
+        "donationType": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "completed", "failed"] },
+        "projectId": { "type": "string" },
+        "isAnonymous": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "receiptNumber": { "type": "string" }
+      },
+      "required": ["id", "donorName", "amount", "currency", "status", "createdAt"]
+    },
+    "VolunteerApplication": {
+      "title": "VolunteerApplication",
+      "description": "Application submitted by community volunteers.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "applicationCode": { "type": "string" },
+        "fullName": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "location": { "type": "string" },
+        "occupation": { "type": "string" },
+        "skills": { "type": "string" },
+        "availability": { "type": "string" },
+        "motivation": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "approved", "declined"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "applicationCode", "fullName", "email", "phone", "status", "createdAt"]
+    },
+    "NewsArticle": {
+      "title": "NewsArticle",
+      "description": "News, press release, or field story published by Noventra Foundation.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "titleSw": { "type": "string" },
+        "excerpt": { "type": "string" },
+        "excerptSw": { "type": "string" },
+        "content": { "type": "string" },
+        "contentSw": { "type": "string" },
+        "category": { "type": "string" },
+        "author": { "type": "string" },
+        "date": { "type": "string" },
+        "imageUrl": { "type": "string" }
+      },
+      "required": ["id", "title", "titleSw", "content", "contentSw", "date"]
+    },
+    "GalleryItem": {
+      "title": "GalleryItem",
+      "description": "Photo or media item from foundation field work.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "titleSw": { "type": "string" },
+        "category": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "date": { "type": "string" },
+        "location": { "type": "string" }
+      },
+      "required": ["id", "title", "titleSw", "imageUrl", "category"]
+    },
+    "ContactMessage": {
+      "title": "ContactMessage",
+      "description": "Inquiry submitted through the contact form.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "subject": { "type": "string" },
+        "message": { "type": "string" },
+        "status": { "type": "string", "enum": ["unread", "read", "replied"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "name", "email", "subject", "message", "status", "createdAt"]
+    },
+    "SiteSettings": {
+      "title": "SiteSettings",
+      "description": "Global foundation contact, location, and payment configuration.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "organizationName": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "emergencyPhone": { "type": "string" },
+        "address": { "type": "string" },
+        "city": { "type": "string" },
+        "country": { "type": "string" }
+      },
+      "required": ["id", "organizationName", "email", "phone"]
+    },
+    "AuditLog": {
+      "title": "AuditLog",
+      "description": "Immutable security and administrative action audit record.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "action": { "type": "string" },
+        "entityType": { "type": "string" },
+        "entityId": { "type": "string" },
+        "performedBy": { "type": "string" },
+        "details": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["id", "action", "entityType", "performedBy", "timestamp"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Staff or admin user profile stored in Firestore.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["super_admin", "admin", "editor", "staff"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "email", "role"]
+    }
+  },
+  "firestore": {
+    "/projects/{projectId}": {
+      "schema": "Project",
+      "description": "Collection of humanitarian and community projects."
+    },
+    "/donations/{donationId}": {
+      "schema": "Donation",
+      "description": "Donations received from supporters."
+    },
+    "/volunteers/{volunteerId}": {
+      "schema": "VolunteerApplication",
+      "description": "Applications submitted by volunteers."
+    },
+    "/news_events/{newsId}": {
+      "schema": "NewsArticle",
+      "description": "News articles, updates, and press releases."
+    },
+    "/media_gallery/{mediaId}": {
+      "schema": "GalleryItem",
+      "description": "Photographs and media documenting field work."
+    },
+    "/contact_messages/{messageId}": {
+      "schema": "ContactMessage",
+      "description": "Public inquiries and messages."
+    },
+    "/site_settings/{settingId}": {
+      "schema": "SiteSettings",
+      "description": "Foundation configuration and Tanzanian account settings."
+    },
+    "/audit_logs/{logId}": {
+      "schema": "AuditLog",
+      "description": "Administrative actions audit trail."
+    },
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Staff and administrator accounts."
+    }
+  }
+}
